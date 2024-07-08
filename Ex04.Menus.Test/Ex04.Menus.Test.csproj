@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{450F614B-2C30-4D3F-AC75-17CA28FC98E0}</ProjectGuid>
+    <ProjectGuid>{C1F8492E-416E-471D-99DC-85E6E1C69956}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Ex04.Menus.Test</RootNamespace>
     <AssemblyName>Ex04.Menus.Test</AssemblyName>
@@ -36,7 +36,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="EventsApplication.cs" />
+    <Compile Include="InterfacesApplication.cs" />
+    <Compile Include="TestApplication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ex04.Menus.Events\Ex04.Menus.Events.csproj">
+      <Project>{3754c894-a41b-4df6-91b0-8778b529d8cf}</Project>
+      <Name>Ex04.Menus.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ex04.Menus.Interfaces\Ex04.Menus.Interfaces.csproj">
+      <Project>{3506d012-a620-4d67-a96b-b8716b10f025}</Project>
+      <Name>Ex04.Menus.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
