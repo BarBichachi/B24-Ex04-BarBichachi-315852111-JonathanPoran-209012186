@@ -7,9 +7,9 @@ namespace Ex04.Menus.Interfaces
 {
     public class MenuItem : IMenu
     {
-        private string Title { get; set; }
-        private readonly List<MenuItem> SubItems;
-        private object Executable { get; set; }
+        private string Title { get; }
+        internal List<MenuItem> SubItems { get; }
+        private IExecutable Executable { get; }
 
         public MenuItem(string i_Title, IExecutable i_Executable)
         {
@@ -23,25 +23,6 @@ namespace Ex04.Menus.Interfaces
             SubItems = new List<MenuItem>();
         }
 
-        public void AddMenuItem(string i_Title, IExecutable i_Executable)
-        {
-            MenuItem newMenuItem = new MenuItem(i_Title, i_Executable);
-            AddMenuItem(newMenuItem);
-        }
-
-        // MainMenu listen to 1....9
-        // 7 notify chosen to MainMenu
-
-
-
-        // MainMenu prints the menu
-        // 7 is chosen
-        // 7 prints the menu
-        // 2 is chosen (print triangle)
-        // 2 notify 7 -> print menu again
-        // 7 notify menu (back was pressed)
-        // MainMenu prints the menu
-
         public void AddMenuItem(MenuItem i_MenuItem)
         {
             if (SubItems == null)
@@ -50,6 +31,11 @@ namespace Ex04.Menus.Interfaces
             }
             else
             {
+                if (SubItems.Count == 0)
+                {
+                    SubItems.Add(new MenuItem("Back"));
+                }
+
                 SubItems.Add(i_MenuItem);
             }
         }
@@ -74,22 +60,17 @@ namespace Ex04.Menus.Interfaces
             }
             else
             {
-                if (SubItems.Count == 0)
-                {
-                    Console.WriteLine($"You forgot to enter sub-items to {Title}");
-                }
                 int userChoice = -1;
 
                 while (userChoice != 0)
                 {
                     PrintMenuSubItems();
-                    Console.WriteLine("0. Back");
 
-                    userChoice = GetValidMenuOption(SubItems.Count);
+                    userChoice = GetValidMenuOption(SubItems.Count - 1);
 
                     if (userChoice != 0)
                     {
-                        SubItems[userChoice - 1].Show();
+                        SubItems[userChoice].Show();
                     }
                 }
             }
@@ -100,13 +81,15 @@ namespace Ex04.Menus.Interfaces
             Console.Clear();
             Console.WriteLine($"===== {Title} =====");
 
-            for (int i = 0; i < SubItems.Count; i++)
+            for (int i = 1; i < SubItems.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {SubItems[i].Title}");
+                Console.WriteLine($"{i}. {SubItems[i].Title}");
             }
+
+            Console.WriteLine($"0. {SubItems[0].Title}");
         }
 
-        internal int GetValidMenuOption(int i_MaximumChoice)
+        internal static int GetValidMenuOption(int i_MaximumChoice)
         {
             bool isValid = false;
             int numericChoice;
@@ -123,7 +106,7 @@ namespace Ex04.Menus.Interfaces
                 }
                 else
                 {
-                    isValid = numericChoice >= 0 && numericChoice <= i_MaximumChoice;
+                    isValid = numericChoice >= 0 && numericChoice <= (i_MaximumChoice);
 
                     if (!isValid)
                     {

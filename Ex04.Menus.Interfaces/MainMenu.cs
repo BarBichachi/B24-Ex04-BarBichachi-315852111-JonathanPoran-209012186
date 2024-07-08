@@ -10,45 +10,26 @@ namespace Ex04.Menus.Interfaces
         public MainMenu(string i_Title)
         {
             r_MainMenu = new MenuItem(i_Title);
+            r_MainMenu.SubItems.Add(new MenuItem("Exit"));
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)
         {
-            r_MainMenu.r_SubItems.Add(i_MenuItem);
+            r_MainMenu.AddMenuItem(i_MenuItem);
         }
 
         public void RemoveMenuItem(MenuItem i_MenuItem)
         {
-            r_MainMenu.r_SubItems.Remove(i_MenuItem);
+            r_MainMenu.RemoveMenuItem(i_MenuItem);
         }
 
         public void Show()
         {
-            if (r_MainMenu.r_SubItems.Count == 0)
-            {
-                Console.WriteLine("You forgot to enter items to your main menu!");
-            }
-            else
-            {
-                int userChoice = -1;
+            r_MainMenu.Show();
 
-                while (userChoice != 0)
-                {
-                    r_MainMenu.PrintMenuSubItems();
-                    Console.WriteLine("0. Exit");
-
-                    userChoice = r_MainMenu.GetValidMenuOption(r_MainMenu.r_SubItems.Count);
-
-                    if (userChoice != 0)
-                    {
-                        r_MainMenu.r_SubItems[userChoice - 1].Show();
-                    }
-                }
-
-                Console.Clear();
-                Console.WriteLine("You chose to exit, goodbye!");
-                Thread.Sleep(3000);
-            }
+            Console.Clear();
+            Console.WriteLine("You chose to exit, see you next time!");
+            Thread.Sleep(3000);
         }
     }
 }

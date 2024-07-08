@@ -29,6 +29,7 @@ namespace Ex04.Menus.Test
             r_MainMenu.Show();
         }
     }
+
     public class ShowVersion : IExecutable
     {
         public void Execute()
@@ -37,6 +38,7 @@ namespace Ex04.Menus.Test
             Thread.Sleep(3000);
         }
     }
+
     public class CountCapitals : IExecutable
     {
         public void Execute()

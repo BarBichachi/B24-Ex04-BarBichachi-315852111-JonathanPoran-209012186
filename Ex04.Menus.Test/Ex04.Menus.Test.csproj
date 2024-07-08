@@ -31,9 +31,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="EventsApplication.cs" />
-    <Compile Include="InterfacesApplication.cs" />
-    <Compile Include="TestApplication.cs" />
     <None Include="App.config" />
   </ItemGroup>
 

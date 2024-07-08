@@ -28,10 +28,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="IExecutable.cs" />
-    <Compile Include="IMenu.cs" />
-    <Compile Include="MainMenu.cs" />
-    <Compile Include="MenuItem.cs" />
     <None Include="App.config" />
   </ItemGroup>
 

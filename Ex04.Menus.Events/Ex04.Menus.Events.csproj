@@ -31,8 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="App.config" />
-    <!-- Include other source files as needed -->
+    <None Include="App.config" />
   </ItemGroup>
 
 </Project>
