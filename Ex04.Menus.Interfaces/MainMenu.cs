@@ -37,7 +37,7 @@ namespace Ex04.Menus.Interfaces
                     r_MainMenu.PrintMenuSubItems();
                     Console.WriteLine("0. Exit");
 
-                    userChoice = r_MainMenu.getValidMenuOption(r_MainMenu.r_SubItems.Count);
+                    userChoice = r_MainMenu.GetValidMenuOption(r_MainMenu.r_SubItems.Count);
 
                     if (userChoice != 0)
                     {

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Ex04.Menus.Interfaces;
 
 namespace Ex04.Menus.Test
 {
     internal class InterfacesApplication
     {
-        private MainMenu m_MainMenu = new MainMenu("Interface Menu");
+        private readonly MainMenu r_MainMenu = new MainMenu("Interface Menu");
 
         public void Start()
         {
@@ -28,9 +24,9 @@ namespace Ex04.Menus.Test
             showDateAndTimeMenu.AddMenuItem(showTimeItem);
             showDateAndTimeMenu.AddMenuItem(showDateItem);
 
-            m_MainMenu.AddMenuItem(versionAndCapitalsMenu);
-            m_MainMenu.AddMenuItem(showDateAndTimeMenu);
-            m_MainMenu.Show();
+            r_MainMenu.AddMenuItem(versionAndCapitalsMenu);
+            r_MainMenu.AddMenuItem(showDateAndTimeMenu);
+            r_MainMenu.Show();
         }
     }
     public class ShowVersion : IExecutable
