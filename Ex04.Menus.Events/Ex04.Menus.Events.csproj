@@ -32,8 +32,6 @@
 
   <ItemGroup>
     <Compile Include="App.config" />
-    <Compile Include="YourSourceFile1.cs" />
-    <Compile Include="YourSourceFile2.cs" />
     <!-- Include other source files as needed -->
   </ItemGroup>
 
