@@ -4,11 +4,11 @@
     {
         public static void Main()
         {
-            InterfacesApplication interfaceApplication = new InterfacesApplication();
-            interfaceApplication.Start();
+            //InterfacesApplication interfaceApplication = new InterfacesApplication();
+            //interfaceApplication.Start();
 
-            //EventsApplication eventsApplication = new EventsApplication();
-            //eventsApplication.Start();
+            EventsApplication eventsApplication = new EventsApplication();
+            eventsApplication.Start();
         }
     }
 }

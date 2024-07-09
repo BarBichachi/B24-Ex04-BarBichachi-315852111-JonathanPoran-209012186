@@ -7,19 +7,20 @@ namespace Ex04.Menus.Interfaces
 {
     public class MenuItem : IMenu
     {
-        private string Title { get; }
+        private readonly string r_Title;
         internal List<MenuItem> SubItems { get; }
-        private IExecutable Executable { get; }
+
+        private readonly IExecutable r_Executable;
 
         public MenuItem(string i_Title, IExecutable i_Executable)
         {
-            Title = i_Title;
-            Executable = i_Executable;
+            r_Title = i_Title;
+            r_Executable = i_Executable;
         }
 
         public MenuItem(string i_Title)
         {
-            Title = i_Title;
+            r_Title = i_Title;
             SubItems = new List<MenuItem>();
         }
 
@@ -48,13 +49,20 @@ namespace Ex04.Menus.Interfaces
             }
             else
             {
-                SubItems.Remove(i_MenuItem);
+                if (SubItems != null)
+                {
+                    SubItems.Remove(i_MenuItem);
+                }
+                else
+                {
+                    Console.WriteLine("Can't remove from empty list.");
+                }
             }
         }
 
         public void Show()
         {
-            if (Executable is IExecutable executableItem)
+            if (r_Executable is IExecutable executableItem)
             {
                 executableItem.Execute();
             }
@@ -79,14 +87,14 @@ namespace Ex04.Menus.Interfaces
         internal void PrintMenuSubItems()
         {
             Console.Clear();
-            Console.WriteLine($"===== {Title} =====");
+            Console.WriteLine($"===== {r_Title} =====");
 
             for (int i = 1; i < SubItems.Count; i++)
             {
-                Console.WriteLine($"{i}. {SubItems[i].Title}");
+                Console.WriteLine($"{i}. {SubItems[i].r_Title}");
             }
 
-            Console.WriteLine($"0. {SubItems[0].Title}");
+            Console.WriteLine($"0. {SubItems[0].r_Title}");
         }
 
         internal static int GetValidMenuOption(int i_MaximumChoice)
