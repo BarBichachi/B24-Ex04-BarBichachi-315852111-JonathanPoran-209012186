@@ -12,15 +12,15 @@ namespace Ex04.Menus.Test
         public void Start()
         {
             MenuItem versionAndCapitalsMenu = new MenuItem("Version and Capitals");
-            MenuItem showVersionItem = new MenuItem("Show Version", ShowVersion);
-            MenuItem countCapitalsItem = new MenuItem("Count Capitals", CountCapitals);
+            MenuItem showVersionItem = new MenuItem("Show Version"/*, ShowVersion*/);
+            MenuItem countCapitalsItem = new MenuItem("Count Capitals"/*, CountCapitals*/);
 
             versionAndCapitalsMenu.AddMenuItem(showVersionItem);
             versionAndCapitalsMenu.AddMenuItem(countCapitalsItem);
 
             MenuItem showDateAndTimeMenu = new MenuItem("Show Date/Time");
-            MenuItem showTimeItem = new MenuItem("Show Time", ShowTime);
-            MenuItem showDateItem = new MenuItem("Show Date", ShowDate);
+            MenuItem showTimeItem = new MenuItem("Show Time"/*, ShowTime*/);
+            MenuItem showDateItem = new MenuItem("Show Date"/*, ShowDate*/);
 
             showDateAndTimeMenu.AddMenuItem(showTimeItem);
             showDateAndTimeMenu.AddMenuItem(showDateItem);
@@ -30,28 +30,59 @@ namespace Ex04.Menus.Test
             r_MainMenu.Show();
         }
 
-        public void ShowVersion()
+        public class ShowVersion
         {
-            Console.WriteLine("Version");
-            Thread.Sleep(3000);
+            public void Execute()
+            {
+                Console.WriteLine("Version: 24.2.4.9504");
+                Thread.Sleep(3000);
+            }
         }
 
-        public void CountCapitals()
+        public class CountCapitals
         {
-            Console.WriteLine("Count Capitals");
-            Thread.Sleep(3000);
+            public void Execute()
+            {
+                Console.WriteLine("Please enter a line of text:");
+                string input = Console.ReadLine();
+
+                int uppercaseCount = countUppercaseLetters(input);
+                Console.WriteLine($"The number of uppercase letters is: {uppercaseCount}");
+                Thread.Sleep(3000);
+            }
+
+            private int countUppercaseLetters(string i_Input)
+            {
+                int numOfUpperLetters = 0;
+                foreach (char c in i_Input)
+                {
+                    if (char.IsUpper(c))
+                    {
+                        numOfUpperLetters++;
+                    }
+                }
+                return numOfUpperLetters;
+            }
         }
 
-        public void ShowTime()
+        public class ShowTime 
         {
-            Console.WriteLine("Time");
-            Thread.Sleep(3000);
+            public void Execute()
+            {
+                DateTime now = DateTime.Now;
+                Console.WriteLine($"The hour is {now.ToString("HH:mm:ss")}");
+                Thread.Sleep(3000);
+            }
         }
 
-        public void ShowDate()
+        public class ShowDate
         {
-            Console.WriteLine("Date");
-            Thread.Sleep(3000);
+            public void Execute()
+            {
+                DateTime now = DateTime.Now;
+                Console.WriteLine($"The date is {now:dd:MM:yyyy}");
+                Thread.Sleep(3000);
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            Console.WriteLine("Version");
+            Console.WriteLine("Version: 24.2.4.9504");
             Thread.Sleep(3000);
         }
     }
@@ -43,8 +43,25 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            Console.WriteLine("Count Capitals");
+            Console.WriteLine("Please enter a line of text:");
+            string input = Console.ReadLine();
+
+            int uppercaseCount = countUppercaseLetters(input);
+            Console.WriteLine($"The number of uppercase letters is: {uppercaseCount}");
             Thread.Sleep(3000);
+        }
+
+        private int countUppercaseLetters(string i_Input)
+        {
+            int numOfUpperLetters = 0;
+            foreach (char c in i_Input)
+            {
+                if (char.IsUpper(c))
+                {
+                    numOfUpperLetters++;
+                }
+            }
+            return numOfUpperLetters;
         }
     }
 
@@ -52,7 +69,8 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            Console.WriteLine("Time");
+            DateTime now = DateTime.Now;
+            Console.WriteLine($"The hour is {now.ToString("HH:mm:ss")}");
             Thread.Sleep(3000);
         }
     }
@@ -61,7 +79,8 @@ namespace Ex04.Menus.Test
     {
         public void Execute()
         {
-            Console.WriteLine("Date");
+            DateTime now = DateTime.Now;
+            Console.WriteLine($"The date is {now:dd:MM:yyyy}");
             Thread.Sleep(3000);
         }
     }

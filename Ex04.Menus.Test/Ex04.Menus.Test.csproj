@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Ex04.Menus.Test</RootNamespace>
     <AssemblyName>Ex04.Menus.Test</AssemblyName>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
