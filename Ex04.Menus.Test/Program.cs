@@ -4,6 +4,7 @@ public class Program
 {
     public static void Main()
     {
-        TestApplication.RunApplication();
+        InterfacesApplication.Start();
+        EventsApplication.Start();
     }
 }

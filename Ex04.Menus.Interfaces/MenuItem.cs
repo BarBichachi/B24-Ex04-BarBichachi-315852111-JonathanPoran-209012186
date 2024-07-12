@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace Ex04.Menus.Interfaces
 {
     public class MenuItem : IMenu
     {
         private readonly string r_Title;
-        internal List<MenuItem> SubItems { get; }
         private readonly IExecutable r_Executable;
+        internal List<MenuItem> SubItems { get; }
 
         public MenuItem(string i_Title, IExecutable i_Executable = null)
         {
@@ -47,7 +45,7 @@ namespace Ex04.Menus.Interfaces
             }
             else
             {
-                if (SubItems != null)
+                if (SubItems.Count != 0)
                 {
                     SubItems.Remove(i_MenuItem);
                 }
@@ -66,23 +64,23 @@ namespace Ex04.Menus.Interfaces
             }
             else
             {
-                int userChoice = -1;
+                int userChoice;
 
-                while (userChoice != 0)
+                do
                 {
-                    PrintMenuSubItems();
+                    printMenuSubItems();
 
-                    userChoice = GetValidMenuOption(SubItems.Count - 1);
+                    userChoice = getValidMenuOption(SubItems.Count - 1);
 
                     if (userChoice != 0)
                     {
                         SubItems[userChoice].Show();
                     }
-                }
+                } while (userChoice != 0);
             }
         }
 
-        internal void PrintMenuSubItems()
+        private void printMenuSubItems()
         {
             Console.Clear();
             Console.WriteLine($"===== {r_Title} =====");
@@ -95,7 +93,7 @@ namespace Ex04.Menus.Interfaces
             Console.WriteLine($"0. {SubItems[0].r_Title}");
         }
 
-        internal static int GetValidMenuOption(int i_MaximumChoice)
+        private static int getValidMenuOption(int i_MaximumChoice)
         {
             bool isValid = false;
             int numericChoice;

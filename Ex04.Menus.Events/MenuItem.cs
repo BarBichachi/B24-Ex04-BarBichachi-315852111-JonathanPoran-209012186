@@ -12,11 +12,14 @@ namespace Ex04.Menus.Events
         public MenuItem(string i_Title, Action i_Action = null)
         {
             r_Title = i_Title;
-            Action = i_Action;
             
             if (i_Action == null)
             {
                 SubItems = new List<MenuItem>();
+            }
+            else
+            {
+                Action = i_Action;
             }
         }
 
@@ -45,7 +48,7 @@ namespace Ex04.Menus.Events
             }
             else
             {
-                if (SubItems != null)
+                if (SubItems.Count != 0)
                 {
                     SubItems.Remove(i_MenuItem);
                 }
@@ -64,26 +67,23 @@ namespace Ex04.Menus.Events
             }
             else
             {
-                int userChoice = -1;
+                int userChoice;
 
-                while (userChoice != 0)
+                do
                 {
-                    PrintMenuSubItems();
+                    printMenuSubItems();
 
-                    if (SubItems != null)
+                    userChoice = getValidMenuOption(SubItems.Count - 1);
+
+                    if (userChoice != 0)
                     {
-                        userChoice = GetValidMenuOption(SubItems.Count - 1);
-
-                        if (userChoice != 0)
-                        {
-                            SubItems[userChoice].Show();
-                        }
+                        SubItems[userChoice].Show();
                     }
-                }
+                } while (userChoice != 0);
             }
         }
 
-        internal void PrintMenuSubItems()
+        private void printMenuSubItems()
         {
             Console.Clear();
             Console.WriteLine($"===== {r_Title} =====");
@@ -99,7 +99,7 @@ namespace Ex04.Menus.Events
             }
         }
 
-        internal static int GetValidMenuOption(int i_MaximumChoice)
+        private static int getValidMenuOption(int i_MaximumChoice)
         {
             bool isValid = false;
             int numericChoice;

@@ -14,9 +14,10 @@ namespace Ex04.Menus.Test
         public static void CountCapitals()
         {
             Console.WriteLine("Please enter a line of text:");
+            
             string input = Console.ReadLine();
-
             int uppercaseCount = countUppercaseLetters(input);
+
             Console.WriteLine($"The number of uppercase letters is: {uppercaseCount}");
             Thread.Sleep(3000);
         }
@@ -24,6 +25,7 @@ namespace Ex04.Menus.Test
         private static int countUppercaseLetters(string input)
         {
             int numOfUpperLetters = 0;
+
             foreach (char c in input)
             {
                 if (char.IsUpper(c))
@@ -31,6 +33,7 @@ namespace Ex04.Menus.Test
                     numOfUpperLetters++;
                 }
             }
+
             return numOfUpperLetters;
         }
 

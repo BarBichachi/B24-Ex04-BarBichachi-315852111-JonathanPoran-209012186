@@ -2,20 +2,19 @@
 
 namespace Ex04.Menus.Test
 {
-    internal class InterfacesApplication
+    internal static class InterfacesApplication
     {
-        private readonly MainMenu r_MainMenu = new MainMenu("Interface Menu");
+        private static readonly MainMenu r_MainMenu = new MainMenu("Interface Menu");
 
-        public void Start()
+        public static void Start()
         {
             MenuItem versionAndCapitalsMenu = new MenuItem("Version and Capitals");
+            MenuItem showDateAndTimeMenu = new MenuItem("Show Date/Time");
+
             versionAndCapitalsMenu.AddMenuItem(new MenuItem("Show Version", new InterfaceMethods.ShowVersion()));
             versionAndCapitalsMenu.AddMenuItem(new MenuItem("Count Capitals", new InterfaceMethods.CountCapitals()));
-
-            MenuItem showDateAndTimeMenu = new MenuItem("Show Date/Time");
             showDateAndTimeMenu.AddMenuItem(new MenuItem("Show Time", new InterfaceMethods.ShowTime()));
             showDateAndTimeMenu.AddMenuItem(new MenuItem("Show Date", new InterfaceMethods.ShowDate()));
-
             r_MainMenu.AddMenuItem(versionAndCapitalsMenu);
             r_MainMenu.AddMenuItem(showDateAndTimeMenu);
             r_MainMenu.Show();
