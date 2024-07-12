@@ -9,19 +9,17 @@ namespace Ex04.Menus.Interfaces
     {
         private readonly string r_Title;
         internal List<MenuItem> SubItems { get; }
-
         private readonly IExecutable r_Executable;
 
-        public MenuItem(string i_Title, IExecutable i_Executable)
+        public MenuItem(string i_Title, IExecutable i_Executable = null)
         {
             r_Title = i_Title;
             r_Executable = i_Executable;
-        }
-
-        public MenuItem(string i_Title)
-        {
-            r_Title = i_Title;
-            SubItems = new List<MenuItem>();
+            
+            if (i_Executable == null)
+            {
+                SubItems = new List<MenuItem>();
+            }
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)

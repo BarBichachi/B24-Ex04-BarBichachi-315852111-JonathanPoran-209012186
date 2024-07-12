@@ -6,9 +6,11 @@ namespace Ex04.Menus.Events
     public class MainMenu
     {
         private readonly MenuItem r_MainMenu;
-
+        private string EndMessage { get; set; }
+        
         public MainMenu(string i_Title)
         {
+            EndMessage = "You chose to exit, see you next time!";
             r_MainMenu = new MenuItem(i_Title);
             r_MainMenu.SubItems.Add(new MenuItem("Exit"));
         }
@@ -26,11 +28,9 @@ namespace Ex04.Menus.Events
         public void Show()
         {
             r_MainMenu.Show();
-
             Console.Clear();
-            Console.WriteLine("You chose to exit, see you next time!");
+            Console.WriteLine(EndMessage);
             Thread.Sleep(3000);
         }
-
     }
 }

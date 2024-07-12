@@ -1,5 +1,4 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Ex04.Menus.Events
@@ -10,17 +9,15 @@ namespace Ex04.Menus.Events
         internal List<MenuItem>? SubItems { get; }
         private Action? Action { get; }
 
-        public MenuItem(string i_Title, Action? i_ActionItem)
+        public MenuItem(string i_Title, Action i_Action = null)
         {
             r_Title = i_Title;
-            Action = i_ActionItem;
-        }
-
-        public MenuItem(string i_Title)
-        {
-            r_Title = i_Title;
-            SubItems = new List<MenuItem>();
-            Action = null;
+            Action = i_Action;
+            
+            if (i_Action == null)
+            {
+                SubItems = new List<MenuItem>();
+            }
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)
