@@ -3,17 +3,18 @@ using System.Threading;
 
 namespace Ex04.Menus.Interfaces
 {
-    public class MainMenu : IMenu
+    public class MainMenu : IMenuObserver
     {
-        private readonly MenuItem r_MainMenu;
+        private readonly SubMenuItem r_MainMenu;
         public string EndMessage { get; set; }
 
         public MainMenu(string i_Title)
         {
             EndMessage = "You chose to exit, see you next time!";
-            r_MainMenu = new MenuItem(i_Title);
+            r_MainMenu = new SubMenuItem(i_Title);
 
-            r_MainMenu.SubItems.Add(new MenuItem("Exit"));
+            //TODO
+            //AddActionMenuItem("Exit", new ExitExecutable());
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)
@@ -23,7 +24,8 @@ namespace Ex04.Menus.Interfaces
                 throw new ArgumentException("Menu item cannot be null.");
             }
 
-            r_MainMenu.AddMenuItem(i_MenuItem);
+            r_MainMenu.AddSubMenuItem(i_MenuItem);
+            i_MenuItem.AttachObserver(this);
         }
 
         public void RemoveMenuItem(MenuItem i_MenuItem)
@@ -33,7 +35,8 @@ namespace Ex04.Menus.Interfaces
                 throw new ArgumentException("Menu item cannot be null.");
             }
 
-            r_MainMenu.RemoveMenuItem(i_MenuItem);
+            r_MainMenu.RemoveSubMenuItem(i_MenuItem);
+            i_MenuItem.DetachObserver(this);
         }
 
         public void Show()
@@ -50,6 +53,11 @@ namespace Ex04.Menus.Interfaces
             }
 
             Thread.Sleep(3000);
+        }
+
+        public void MenuItemSelected(MenuItem i_MenuItem)
+        {
+            i_MenuItem.Show();
         }
     }
 }
