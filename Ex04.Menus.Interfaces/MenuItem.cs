@@ -65,12 +65,13 @@ namespace Ex04.Menus.Interfaces
             else
             {
                 int userChoice;
+                bool needToPrintExit = SubItems[0].r_Title == "Exit";
 
                 do
-                {
+                {    
                     printMenuSubItems();
 
-                    userChoice = getValidMenuOption(SubItems.Count - 1);
+                    userChoice = getValidMenuOption(SubItems.Count - 1, needToPrintExit);
 
                     if (userChoice != 0)
                     {
@@ -93,14 +94,16 @@ namespace Ex04.Menus.Interfaces
             Console.WriteLine($"0. {SubItems[0].r_Title}");
         }
 
-        private static int getValidMenuOption(int i_MaximumChoice)
+        private static int getValidMenuOption(int i_MaximumChoice, bool i_IsExit)
         {
             bool isValid = false;
             int numericChoice;
 
             do
             {
-                Console.Write($"Please enter your choice (1-{i_MaximumChoice} or 0 to exit): ");
+                string returnText = i_IsExit ? "exit" : "back";
+                
+                Console.Write($"Please enter your choice (1-{i_MaximumChoice} or 0 to {returnText}): ");
 
                 string userChoice = Console.ReadLine();
 

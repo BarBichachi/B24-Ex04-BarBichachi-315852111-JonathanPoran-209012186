@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace Ex04.Menus.Events
 {
     public class MenuItem
     {
         private readonly string r_Title;
-        internal List<MenuItem>? SubItems { get; }
-        private Action? Action { get; }
-
+        internal List<MenuItem> SubItems { get; }
+        private Action Action { get; }
+        
         public MenuItem(string i_Title, Action i_Action = null)
         {
             r_Title = i_Title;
@@ -68,12 +69,13 @@ namespace Ex04.Menus.Events
             else
             {
                 int userChoice;
+                bool needToPrintExit = SubItems[0].r_Title == "Exit";
 
                 do
                 {
                     printMenuSubItems();
 
-                    userChoice = getValidMenuOption(SubItems.Count - 1);
+                    userChoice = getValidMenuOption(SubItems.Count - 1, needToPrintExit);
 
                     if (userChoice != 0)
                     {
@@ -99,14 +101,16 @@ namespace Ex04.Menus.Events
             }
         }
 
-        private static int getValidMenuOption(int i_MaximumChoice)
+        private static int getValidMenuOption(int i_MaximumChoice, bool i_IsExit)
         {
             bool isValid = false;
             int numericChoice;
 
             do
             {
-                Console.Write($"Please enter your choice (1-{i_MaximumChoice} or 0 to exit): ");
+                string returnText = i_IsExit ? "exit" : "back";
+
+                Console.Write($"Please enter your choice (1-{i_MaximumChoice} or 0 to {returnText}): ");
 
                 string userChoice = Console.ReadLine();
 
