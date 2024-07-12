@@ -1,4 +1,5 @@
-﻿using Ex04.Menus.Events;
+﻿using System;
+using Ex04.Menus.Events;
 
 namespace Ex04.Menus.Test
 {
@@ -7,7 +8,7 @@ namespace Ex04.Menus.Test
         private static readonly MainMenu r_MainMenu = new MainMenu("Events Menu");
 
         public static void Start()
-        { 
+        {
             MenuItem versionAndCapitalsMenu = new MenuItem("Version and Capitals");
             MenuItem showDateAndTimeMenu = new MenuItem("Show Date/Time");
 

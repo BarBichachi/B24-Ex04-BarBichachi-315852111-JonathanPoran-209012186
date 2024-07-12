@@ -22,13 +22,13 @@ namespace Ex04.Menus.Test
             Thread.Sleep(3000);
         }
 
-        private static int countUppercaseLetters(string input)
+        private static int countUppercaseLetters(string i_Input)
         {
             int numOfUpperLetters = 0;
 
-            foreach (char c in input)
+            foreach (char currentChar in i_Input)
             {
-                if (char.IsUpper(c))
+                if (char.IsUpper(currentChar))
                 {
                     numOfUpperLetters++;
                 }

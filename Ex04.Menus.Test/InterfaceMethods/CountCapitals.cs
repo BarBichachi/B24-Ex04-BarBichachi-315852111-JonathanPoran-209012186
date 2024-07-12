@@ -21,9 +21,9 @@ namespace Ex04.Menus.Test.InterfaceMethods
         {
             int numOfUpperLetters = 0;
 
-            foreach (char c in i_Input)
+            foreach (char currentChar in i_Input)
             {
-                if (char.IsUpper(c))
+                if (char.IsUpper(currentChar))
                 {
                     numOfUpperLetters++;
                 }

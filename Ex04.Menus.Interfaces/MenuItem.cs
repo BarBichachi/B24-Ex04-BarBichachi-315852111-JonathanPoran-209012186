@@ -22,11 +22,12 @@ namespace Ex04.Menus.Interfaces
 
         public void AddMenuItem(MenuItem i_MenuItem)
         {
-            if (SubItems == null)
+            if (r_Executable != null)
             {
-                Console.WriteLine("This is an executable item!");
+                throw new ArgumentException("Cannot add sub-items to an executable item.");
             }
-            else
+
+            if (SubItems != null)
             {
                 if (SubItems.Count == 0)
                 {
@@ -35,25 +36,30 @@ namespace Ex04.Menus.Interfaces
 
                 SubItems.Add(i_MenuItem);
             }
+            else
+            {
+                throw new ArgumentException("Cannot add sub-items to uninitialized list!");
+            }
         }
 
         public void RemoveMenuItem(MenuItem i_MenuItem)
         {
             if (SubItems == null)
             {
-                Console.WriteLine("This is an executable item!");
+                throw new ArgumentException("Cannot remove from an executable item.");
             }
-            else
+
+            if (SubItems.Count == 0)
             {
-                if (SubItems.Count != 0)
-                {
-                    SubItems.Remove(i_MenuItem);
-                }
-                else
-                {
-                    Console.WriteLine("Can't remove from empty list.");
-                }
+                throw new ArgumentException("No items to remove in the SubItems list.");
             }
+
+            if (!SubItems.Contains(i_MenuItem))
+            {
+                throw new ArgumentException("Menu item to remove does not exist in SubItems.");
+            }
+
+            SubItems.Remove(i_MenuItem);
         }
 
         public void Show()
@@ -62,7 +68,7 @@ namespace Ex04.Menus.Interfaces
             {
                 executableItem.Execute();
             }
-            else
+            else if (SubItems.Count != 0)
             {
                 int userChoice;
                 bool needToPrintExit = SubItems[0].r_Title == "Exit";
@@ -78,6 +84,10 @@ namespace Ex04.Menus.Interfaces
                         SubItems[userChoice].Show();
                     }
                 } while (userChoice != 0);
+            }
+            else
+            {
+                throw new ArgumentException("No sub-items available to show.");
             }
         }
 

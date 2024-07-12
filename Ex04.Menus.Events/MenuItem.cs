@@ -28,16 +28,21 @@ namespace Ex04.Menus.Events
         {
             if (Action != null)
             {
-                Console.WriteLine("This is an executable item!");
+                throw new ArgumentException("Cannot add sub-items to an executable item.");
             }
-            else
+
+            if (SubItems != null)
             {
-                if (SubItems != null && SubItems.Count == 0)
+                if (SubItems.Count == 0)
                 {
                     SubItems.Add(new MenuItem("Back"));
                 }
 
-                SubItems?.Add(i_MenuItem);
+                SubItems.Add(i_MenuItem);
+            }
+            else
+            {
+                throw new ArgumentException("Cannot add sub-items to uninitialized list!");
             }
         }
 
@@ -45,19 +50,20 @@ namespace Ex04.Menus.Events
         {
             if (Action != null)
             {
-                Console.WriteLine("This is an executable item!");
+                throw new ArgumentException("Cannot remove from an executable item.");
             }
-            else
+
+            if (SubItems.Count == 0)
             {
-                if (SubItems.Count != 0)
-                {
-                    SubItems.Remove(i_MenuItem);
-                }
-                else
-                {
-                    Console.WriteLine("Can't remove from empty list.");
-                }
+                throw new ArgumentException("No items to remove in the SubItems list.");
             }
+
+            if (!SubItems.Contains(i_MenuItem))
+            {
+                throw new ArgumentException("Menu item to remove does not exist in SubItems.");
+            }
+
+            SubItems.Remove(i_MenuItem);
         }
 
         public void Show()
@@ -66,7 +72,7 @@ namespace Ex04.Menus.Events
             {
                 Action.Invoke();
             }
-            else
+            else if (SubItems.Count != 0)
             {
                 int userChoice;
                 bool needToPrintExit = SubItems[0].r_Title == "Exit";
@@ -83,6 +89,10 @@ namespace Ex04.Menus.Events
                     }
                 } while (userChoice != 0);
             }
+            else
+            {
+                throw new ArgumentException("No sub-items available to show.");
+            }
         }
 
         private void printMenuSubItems()
@@ -90,15 +100,12 @@ namespace Ex04.Menus.Events
             Console.Clear();
             Console.WriteLine($"===== {r_Title} =====");
 
-            if (SubItems != null)
+            for (int i = 1; i < SubItems.Count; i++)
             {
-                for (int i = 1; i < SubItems.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {SubItems[i].r_Title}");
-                }
-
-                Console.WriteLine($"0. {SubItems[0].r_Title}");
+                Console.WriteLine($"{i}. {SubItems[i].r_Title}");
             }
+
+            Console.WriteLine($"0. {SubItems[0].r_Title}");
         }
 
         private static int getValidMenuOption(int i_MaximumChoice, bool i_IsExit)
