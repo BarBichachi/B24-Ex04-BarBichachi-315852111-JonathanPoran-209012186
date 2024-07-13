@@ -3,42 +3,54 @@ using System.Collections.Generic;
 
 namespace Ex04.Menus.Interfaces
 {
-    public class MenuItem : IMenu
+    public class MenuItem
     {
         private readonly string r_Title;
-        private readonly IExecutable r_Executable;
-        internal List<MenuItem> SubItems { get; }
-
-        public MenuItem(string i_Title, IExecutable i_Executable = null)
+        private bool? m_IsSubMenu;
+        private List<MenuItem> SubItems;
+        public event Action<MenuItem> m_MenuNoitifier;
+        public event Action<string> m_MethodNoitifier
+        {
+            add
+            {
+                SetIsSubMenu(false);
+                if(m_IsSubMenu == true)
+                {
+                    throw new ArgumentException("Cannot add sub-items to an executable item.");
+                }
+                else
+                {
+                    m_MethodNoitifier += value;
+                }
+            }
+            remove
+            {
+                m_MethodNoitifier -= value;
+            }
+        }
+        public MenuItem(string i_Title)
         {
             r_Title = i_Title;
-            r_Executable = i_Executable;
-            
-            if (i_Executable == null)
-            {
-                SubItems = new List<MenuItem>();
-            }
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)
         {
-            if (r_Executable != null)
-            {
-                throw new ArgumentException("Cannot add sub-items to an executable item.");
-            }
+            SetIsSubMenu(true);
 
-            if (SubItems != null)
+            if(m_IsSubMenu == true)
             {
-                if (SubItems.Count == 0)
+                if (SubItems == null)
                 {
-                    SubItems.Add(new MenuItem("Back"));
+                    SubItems = new List<MenuItem>();
                 }
 
                 SubItems.Add(i_MenuItem);
+                i_MenuItem.m_MenuNoitifier += new Action<MenuItem>(this.DoChooseItem);
             }
+            
             else
             {
-                throw new ArgumentException("Cannot add sub-items to uninitialized list!");
+                throw new ArgumentException("Cannot add sub-items to an executable item.");
             }
         }
 
@@ -62,77 +74,22 @@ namespace Ex04.Menus.Interfaces
             SubItems.Remove(i_MenuItem);
         }
 
-        public void Show()
+        public override string ToString()
         {
-            if (r_Executable is IExecutable executableItem)
-            {
-                executableItem.Execute();
-            }
-            else if (SubItems.Count != 0)
-            {
-                int userChoice;
-                bool needToPrintExit = SubItems[0].r_Title == "Exit";
-
-                do
-                {    
-                    printMenuSubItems();
-
-                    userChoice = getValidMenuOption(SubItems.Count - 1, needToPrintExit);
-
-                    if (userChoice != 0)
-                    {
-                        SubItems[userChoice].Show();
-                    }
-                } while (userChoice != 0);
-            }
-            else
-            {
-                throw new ArgumentException("No sub-items available to show.");
-            }
+            return r_Title;
         }
 
-        private void printMenuSubItems()
+        public void DoChooseItem()
         {
-            Console.Clear();
-            Console.WriteLine($"===== {r_Title} =====");
-
-            for (int i = 1; i < SubItems.Count; i++)
-            {
-                Console.WriteLine($"{i}. {SubItems[i].r_Title}");
-            }
-
-            Console.WriteLine($"0. {SubItems[0].r_Title}");
+            m_MethodNoitifier?.Invoke(r_Title);
         }
 
-        private static int getValidMenuOption(int i_MaximumChoice, bool i_IsExit)
+        private void SetIsSubMenu(bool value)
         {
-            bool isValid = false;
-            int numericChoice;
-
-            do
+            if (m_IsSubMenu == null)
             {
-                string returnText = i_IsExit ? "exit" : "back";
-                
-                Console.Write($"Please enter your choice (1-{i_MaximumChoice} or 0 to {returnText}): ");
-
-                string userChoice = Console.ReadLine();
-
-                if (!int.TryParse(userChoice, out numericChoice))
-                {
-                    Console.WriteLine("Invalid choice. Please enter a valid integer.");
-                }
-                else
-                {
-                    isValid = numericChoice >= 0 && numericChoice <= (i_MaximumChoice);
-
-                    if (!isValid)
-                    {
-                        Console.WriteLine($"You can only choose between 0 and {i_MaximumChoice}. try again.");
-                    }
-                }
-            } while (!isValid);
-
-            return numericChoice;
+                m_IsSubMenu = value;
+            }
         }
     }
 }
