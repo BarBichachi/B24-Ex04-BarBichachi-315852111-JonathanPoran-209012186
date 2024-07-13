@@ -5,16 +5,12 @@ namespace Ex04.Menus.Interfaces
 {
     public abstract class MenuItem
     {
-        private readonly List<IMenuObserver> r_Observers = new List<IMenuObserver>();
-
+        protected readonly List<IMenuObserver> r_Observers = new List<IMenuObserver>();
         public string Title { get; }
-
-        internal List<MenuItem> SubItems { get; }
 
         public MenuItem(string title)
         {
             Title = title;
-            SubItems = new List<MenuItem>();
         }
 
         public void AttachObserver(IMenuObserver i_Observer)

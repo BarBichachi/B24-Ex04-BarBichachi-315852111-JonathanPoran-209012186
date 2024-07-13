@@ -10,15 +10,17 @@ namespace Ex04.Menus.Test
         {
             SubMenuItem versionAndCapitalsMenu = new SubMenuItem("Version and Capitals");
             SubMenuItem showDateAndTimeMenu = new SubMenuItem("Show Date/Time");
+            ActionMenuItem showVersionAction = new ActionMenuItem("Show Version", new InterfaceMethods.ShowVersion());
+            ActionMenuItem countCapitalsAction = new ActionMenuItem("Count Capitals", new InterfaceMethods.CountCapitals());
+            ActionMenuItem showTimeAction = new ActionMenuItem("Show Time", new InterfaceMethods.ShowTime());
+            ActionMenuItem showDateAction = new ActionMenuItem("Show Date", new InterfaceMethods.ShowDate());
 
-            versionAndCapitalsMenu.AddActionMenuItem("Show Version", new InterfaceMethods.ShowVersion());
-            versionAndCapitalsMenu.AddActionMenuItem("Count Capitals", new InterfaceMethods.CountCapitals());
-            showDateAndTimeMenu.AddActionMenuItem("Show Time", new InterfaceMethods.ShowTime());
-            showDateAndTimeMenu.AddActionMenuItem("Show Date", new InterfaceMethods.ShowDate());
-
+            versionAndCapitalsMenu.AddMenuItem(showVersionAction);
+            versionAndCapitalsMenu.AddMenuItem(countCapitalsAction);
+            showDateAndTimeMenu.AddMenuItem(showTimeAction);
+            showDateAndTimeMenu.AddMenuItem(showDateAction);
             r_MainMenu.AddMenuItem(versionAndCapitalsMenu);
             r_MainMenu.AddMenuItem(showDateAndTimeMenu);
-
             r_MainMenu.Show();
         }
     }

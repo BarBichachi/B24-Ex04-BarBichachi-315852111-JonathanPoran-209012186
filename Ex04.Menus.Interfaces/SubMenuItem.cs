@@ -1,29 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex04.Menus.Interfaces
 {
     public class SubMenuItem : MenuItem
     {
+        internal List<MenuItem> SubItems { get; }
+
         public SubMenuItem(string i_Title) : base(i_Title)
         {
+            SubItems = new List<MenuItem>();
         }
 
-        public void AddActionMenuItem(string i_Title, IExecutable i_Executable)
-        {
-            var actionMenuItem = new ActionMenuItem(i_Title, i_Executable);
-            AddSubMenuItem(actionMenuItem);
-        }
-
-        public void AddSubMenuItem(MenuItem i_MenuItem)
+        public void AddMenuItem(MenuItem i_MenuItem)
         {
             SubItems.Add(i_MenuItem);
         }
 
-        public void RemoveSubMenuItem(MenuItem i_MenuItem)
+        public void RemoveMenuItem(MenuItem i_MenuItem)
         {
             SubItems.Remove(i_MenuItem);
         }
@@ -31,6 +25,7 @@ namespace Ex04.Menus.Interfaces
         public override void Show()
         {
             int userChoice;
+
             do
             {
                 PrintMenu();

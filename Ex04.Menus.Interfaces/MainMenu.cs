@@ -14,7 +14,7 @@ namespace Ex04.Menus.Interfaces
             r_MainMenu = new SubMenuItem(i_Title);
 
             //TODO
-            //AddActionMenuItem("Exit", new ExitExecutable());
+            //r_MainMenu.SubItems.Add(new SubMenuItem("Exit"));
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)
@@ -24,7 +24,7 @@ namespace Ex04.Menus.Interfaces
                 throw new ArgumentException("Menu item cannot be null.");
             }
 
-            r_MainMenu.AddSubMenuItem(i_MenuItem);
+            r_MainMenu.AddMenuItem(i_MenuItem);
             i_MenuItem.AttachObserver(this);
         }
 
@@ -35,23 +35,15 @@ namespace Ex04.Menus.Interfaces
                 throw new ArgumentException("Menu item cannot be null.");
             }
 
-            r_MainMenu.RemoveSubMenuItem(i_MenuItem);
+            r_MainMenu.RemoveMenuItem(i_MenuItem);
             i_MenuItem.DetachObserver(this);
         }
 
         public void Show()
         {
-            try
-            {
-                r_MainMenu.Show();
-                Console.Clear();
-                Console.WriteLine(EndMessage);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
-
+            r_MainMenu.Show();
+            Console.Clear();
+            Console.WriteLine(EndMessage);
             Thread.Sleep(3000);
         }
 

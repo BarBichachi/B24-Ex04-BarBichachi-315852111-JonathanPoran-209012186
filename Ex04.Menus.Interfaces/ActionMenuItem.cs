@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace Ex04.Menus.Interfaces
 {
-    internal class ActionMenuItem : MenuItem
+    public class ActionMenuItem : MenuItem
     {
         private readonly IExecutable r_Executable;
 
+
         public ActionMenuItem(string i_Title, IExecutable i_Executable) : base(i_Title)
         {
-            this.r_Executable = i_Executable;
+            r_Executable = i_Executable;
         }
 
         public override void Show()
         {
+            NotifyObservers();
             r_Executable.Execute();
         }
     }
