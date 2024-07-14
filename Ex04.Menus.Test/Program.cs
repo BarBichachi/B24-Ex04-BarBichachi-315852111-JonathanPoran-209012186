@@ -5,8 +5,8 @@ public class Program
     public static void Main()
     {
         InterfacesApplication interfaceApplication = new InterfacesApplication();
-        interfaceApplication.Start();
 
-        //EventsApplication.Start();
+        interfaceApplication.Start();
+        EventsApplication.Start();
     }
 }

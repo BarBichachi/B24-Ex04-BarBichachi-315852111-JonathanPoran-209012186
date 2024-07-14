@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace Ex04.Menus.Interfaces
@@ -22,18 +21,10 @@ namespace Ex04.Menus.Interfaces
 
         public void Show()
         {
-            try
-            {
-                Console.Clear();
-                r_MainMenu.Show();
-                Console.WriteLine(EndMessage);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
+            Console.Clear();
+            r_MainMenu.onChosen();
+            Console.WriteLine(EndMessage);
+            Thread.Sleep(3000);
         }
     }
-
 }

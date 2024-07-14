@@ -7,21 +7,12 @@ namespace Ex04.Menus.Interfaces
     {
         protected readonly string r_Title;
         private List<MenuItem> m_SubItems = new List<MenuItem>();
-        private readonly bool r_IsSubMenu;
-        private IMenuListener? m_MenuListener;
-        private readonly IMethodListener? r_MethodListener;
+        private IMenuListener m_MenuListener;
+        private readonly IMethodListener r_MethodListener;
 
-        public MenuItem(string i_Title)
+        public MenuItem(string i_Title, IMethodListener i_Listener = null)
         {
             r_Title = i_Title;
-            r_IsSubMenu = true;
-            r_MethodListener = null;
-        }
-
-        public MenuItem(string i_Title, IMethodListener i_Listener)
-        {
-            r_Title = i_Title;
-            r_IsSubMenu = false;
             r_MethodListener = i_Listener;
         }
 
@@ -46,11 +37,11 @@ namespace Ex04.Menus.Interfaces
             }
         }
 
-        internal void Show()
+        internal void onChosen()
         {
             if (r_MethodListener != null)
             {
-                r_MethodListener?.chosenMethod(this.r_Title);
+                r_MethodListener?.ChosenMethod(this.r_Title);
                 m_MenuListener?.ReportFinished();
             }
             else
@@ -61,7 +52,7 @@ namespace Ex04.Menus.Interfaces
 
                 if (userChoice != 0)
                 {
-                    m_SubItems[userChoice - 1].Show();
+                    m_SubItems[userChoice - 1].onChosen();
                 }
                 else
                 {
@@ -120,7 +111,7 @@ namespace Ex04.Menus.Interfaces
 
         void IMenuListener.ReportFinished()
         {
-            this.Show();
+            this.onChosen();
         }
     }
 }

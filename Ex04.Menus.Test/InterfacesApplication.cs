@@ -5,7 +5,7 @@ using Ex04.Menus.Interfaces;
 
 namespace Ex04.Menus.Test
 {
-    internal class InterfacesApplication : IMethodListener
+    public class InterfacesApplication : IMethodListener
     {
         private static readonly MainMenu sr_MainMenu = new MainMenu("Interface Menu");
 
@@ -23,34 +23,33 @@ namespace Ex04.Menus.Test
             sr_MainMenu.Show();
         }
 
-        public void chosenMethod(string i_MenuItemTitle)
+        public void ChosenMethod(string i_MenuItemTitle)
         {
             if (i_MenuItemTitle == "Show Version")
             {
-                ShowVersion();
+                showVersion();
             }
             else if (i_MenuItemTitle == "Count Capitals")
             {
-                CountCapitals();
+                countCapitals();
             }
             else if (i_MenuItemTitle == "Show Time")
             {
-                ShowTime();
+                showTime();
             }
             else if (i_MenuItemTitle == "Show Date")
             {
-                ShowDate();
+                showDate();
             }
-
         }
 
-        private static void ShowVersion()
+        private static void showVersion()
         {
             Console.WriteLine("Version: 24.2.4.9504");
             Thread.Sleep(3000);
         }
 
-        private static void CountCapitals()
+        private static void countCapitals()
         {
             Console.WriteLine("Please enter a line of text:");
 
@@ -76,13 +75,13 @@ namespace Ex04.Menus.Test
             return numOfUpperLetters;
         }
 
-        private static void ShowTime()
+        private static void showTime()
         {
             Console.WriteLine($"The hour is {DateTime.Now.ToString("HH:mm:ss")}");
             Thread.Sleep(3000);
         }
 
-        private static void ShowDate()
+        private static void showDate()
         {
             Console.WriteLine($"The date is {DateTime.Now:dd/MM/yyyy}");
             Thread.Sleep(3000);

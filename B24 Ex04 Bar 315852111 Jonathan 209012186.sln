@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex04.Menus.Test", "Ex04.Menus.Test\Ex04.Menus.Test.csproj", "{C1F8492E-416E-471D-99DC-85E6E1C69956}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex04.Menus.Test", "Ex04.Menus.Test\Ex04.Menus.Test.csproj", "{C1F8492E-416E-471D-99DC-85E6E1C69956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex04.Menus.Interfaces", "Ex04.Menus.Interfaces\Ex04.Menus.Interfaces.csproj", "{3506D012-A620-4D67-A96B-B8716B10F025}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex04.Menus.Interfaces", "Ex04.Menus.Interfaces\Ex04.Menus.Interfaces.csproj", "{3506D012-A620-4D67-A96B-B8716B10F025}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex04.Menus.Events", "Ex04.Menus.Events\Ex04.Menus.Events.csproj", "{3754C894-A41B-4DF6-91B0-8778B529D8CF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "programEv", "newInterfaces\programEv.csproj", "{2D15EBB3-0EC8-4AEB-A2F1-40DDF7199F89}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "programInterface", "programInterface\programInterface.csproj", "{96364D80-20C2-47FE-BD3E-D894D95196D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex04.Menus.Events", "Ex04.Menus.Events\Ex04.Menus.Events.csproj", "{3754C894-A41B-4DF6-91B0-8778B529D8CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +27,6 @@ Global
 		{3754C894-A41B-4DF6-91B0-8778B529D8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3754C894-A41B-4DF6-91B0-8778B529D8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3754C894-A41B-4DF6-91B0-8778B529D8CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D15EBB3-0EC8-4AEB-A2F1-40DDF7199F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D15EBB3-0EC8-4AEB-A2F1-40DDF7199F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D15EBB3-0EC8-4AEB-A2F1-40DDF7199F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D15EBB3-0EC8-4AEB-A2F1-40DDF7199F89}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96364D80-20C2-47FE-BD3E-D894D95196D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96364D80-20C2-47FE-BD3E-D894D95196D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96364D80-20C2-47FE-BD3E-D894D95196D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96364D80-20C2-47FE-BD3E-D894D95196D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
