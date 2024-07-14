@@ -1,12 +1,30 @@
-﻿namespace programInterface
+﻿using System;
+namespace programInterface
 {
     public class MenuItem : IMenuListener
     {
         protected readonly string r_Title = string.Empty;
         private List<MenuItem> m_SubItems = new List<MenuItem>();
         private bool? m_IsSubMenu;
-        private IMenuListener m_MenuListener;
-        private List<IMethodsListener> m_MethodListener;
+        private IMenuListener? m_MenuListener;
+        private IMethodListener? m_MethodListener;
+
+
+        public IMethodListener? MethodListener 
+        {
+            set
+            {
+                if (m_IsSubMenu == null || m_IsSubMenu == false)
+                {
+                    SetIsSubMenu(false);
+                    m_MethodListener = value; // Corrected to set the appropriate field
+                }
+                else
+                {
+                    throw new ArgumentException("SubMenu can't be an action item menu");
+                }
+            }
+        }
 
         public MenuItem(string i_Title)
         {
@@ -20,7 +38,15 @@
             if (m_IsSubMenu == true)
             {
                 m_SubItems.Add(i_MenuItem);
-                i_MenuItem.m_MenuListener = this;
+                
+                if(i_MenuItem.m_MenuListener == null)
+                {
+                    i_MenuItem.m_MenuListener = this;
+                }
+                else
+                {
+                    throw new ArgumentException($"{i_MenuItem} is already in another menu please duplicat it");
+                }
             }
             else
             {
@@ -32,7 +58,8 @@
         {
             if(m_IsSubMenu == null || m_IsSubMenu == false)
             {
-                m_MethodListener();
+                m_MethodListener?.MenuItemChoosed(this.r_Title);
+                m_MenuListener?.OneOfMySubitemFinish();
             }
             else if(m_IsSubMenu != null)
             {
@@ -43,7 +70,7 @@
 
                 printSubItems(m_SubItems);
 
-                string returnString = m_MenuNotifier == null ? "Exit" : "Back";
+                string returnString = m_MenuListener == null ? "Exit" : "Back";
 
                 Console.WriteLine($"0. {returnString}");
 
@@ -53,8 +80,11 @@
                 {
                     m_SubItems[userChoice - 1].Show();
                 }
+                else 
+                {
+                    m_MenuListener?.OneOfMySubitemFinish();
+                }
             }
-            m_MenuNotifier?.Invoke();
         }
 
         private int getValidOption(List<MenuItem> i_SubItems, string i_ReturnString)
@@ -105,14 +135,9 @@
             }
         }
 
-        public override string ToString()
+        void IMenuListener.OneOfMySubitemFinish()
         {
-            return r_Title;
-        }
-
-        void IMenuListener.MenuItemReport()
-        {
-
+            this.Show();
         }
     }
 }

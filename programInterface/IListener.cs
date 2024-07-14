@@ -1,6 +1,11 @@
 ﻿namespace programInterface;
 
-public interface IListener<T>
+internal interface IMenuListener
 {
-    void MenuItemReport (T i_Param);
+    void OneOfMySubitemFinish ();
+}
+
+public interface IMethodListener 
+{
+    void MenuItemChoosed (string i_MenuItemTitel);
 }

@@ -5,7 +5,7 @@
         private List<MenuItem> m_SubItems = new List<MenuItem>();
         private bool? m_IsSubMenu;
         internal event Action m_MenuNotifiers;
-        public event Action m_MethodsNotifiers;
+        public Action<string> m_MethodsNotifiers;
 
         public MenuItem(string i_Title)
         {
@@ -31,7 +31,7 @@
         {
             if(m_IsSubMenu == null || m_IsSubMenu == false)
             {
-                m_MethodsNotifiers?.Invoke();
+                m_MethodsNotifiers?.Invoke(this.r_Title);
             }
             else if(m_IsSubMenu != null)
             {
@@ -102,10 +102,5 @@
             {
                 m_IsSubMenu = value;
             }
-        }
-
-        public override string ToString()
-        {
-            return r_Title;
         }
     }

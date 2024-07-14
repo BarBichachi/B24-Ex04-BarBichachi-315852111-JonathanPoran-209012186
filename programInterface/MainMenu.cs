@@ -15,7 +15,6 @@ public class MainMenu
     public void AddMenuItem(MenuItem i_MenuItem)
     {
         r_MainMenu.AddMenuItem(i_MenuItem);
-        //TODO i_MenuItem.m_MenuNotifiers += Show;
     }
 
     public void Show()
@@ -23,7 +22,9 @@ public class MainMenu
         try
         {
             Console.Clear();
-            //TODO r_MainMenu.show();
+            r_MainMenu.Show();
+            Console.WriteLine(EndMessage);
+
         }
         catch (Exception ex)
         {
