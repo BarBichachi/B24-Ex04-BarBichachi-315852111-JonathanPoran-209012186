@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace Ex04.Menus.Interfaces
-{
+﻿
     public class MainMenu
     {
         private readonly MenuItem r_MainMenu;
@@ -17,14 +13,19 @@ namespace Ex04.Menus.Interfaces
         public void AddMenuItem(MenuItem i_MenuItem)
         {
             r_MainMenu.AddMenuItem(i_MenuItem);
+            i_MenuItem.m_MenuNotifiers += Show;
         }
 
         public void Show()
         {
-            Console.Clear();
-            r_MainMenu.Show();
-            Console.WriteLine(EndMessage);
-            Thread.Sleep(3000);
+            try
+            {
+                Console.Clear();
+                r_MainMenu.show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
     }
-}

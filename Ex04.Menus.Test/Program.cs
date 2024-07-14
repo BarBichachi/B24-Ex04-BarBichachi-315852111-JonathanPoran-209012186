@@ -4,7 +4,9 @@ public class Program
 {
     public static void Main()
     {
-        InterfacesApplication.Start();
+        InterfacesApplication interfaceApplication = new InterfacesApplication();
+
+        interfaceApplication.Start();
         EventsApplication.Start();
     }
 }

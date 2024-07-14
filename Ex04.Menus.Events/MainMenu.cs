@@ -1,5 +1,6 @@
-﻿using System.Threading;
-using System;
+﻿using System;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace Ex04.Menus.Events
 {
@@ -7,49 +8,44 @@ namespace Ex04.Menus.Events
     {
         private readonly MenuItem r_MainMenu;
         public string EndMessage { get; set; }
-        
+
         public MainMenu(string i_Title)
         {
-            EndMessage = "You chose to exit, see you next time!";
             r_MainMenu = new MenuItem(i_Title);
-            
-            r_MainMenu.SubItems.Add(new MenuItem("Exit"));
+            EndMessage = "You chose to exit, see you next time!";
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)
         {
-            if (i_MenuItem == null)
-            {
-                throw new ArgumentException("Menu item cannot be null.");
-            }
-
             r_MainMenu.AddMenuItem(i_MenuItem);
-        }
-
-        public void RemoveMenuItem(MenuItem i_MenuItem)
-        {
-            if (i_MenuItem == null)
-            {
-                throw new ArgumentException("Menu item cannot be null.");
-            }
-
-            r_MainMenu.RemoveMenuItem(i_MenuItem);
         }
 
         public void Show()
         {
-            try
-            {
-                r_MainMenu.Show();
-                Console.Clear();
-                Console.WriteLine(EndMessage);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
-
+            Console.Clear();
+            showMainMenu();
+            Console.WriteLine(EndMessage);
             Thread.Sleep(3000);
+        }
+
+        private void showMainMenu()
+        {
+            List<MenuItem> mainMenuSubItems = r_MainMenu.SubItems;
+            bool isFinished = false;
+
+            do
+            {
+                int userChoice = r_MainMenu.GetValidOption(mainMenuSubItems, "Exit");
+
+                if (userChoice != 0)
+                {
+                    mainMenuSubItems[userChoice - 1].Show();
+                }
+                else
+                {
+                    isFinished = true;
+                }
+            } while (!isFinished);
         }
     }
 }
