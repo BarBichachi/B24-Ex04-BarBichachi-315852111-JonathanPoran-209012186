@@ -22,7 +22,7 @@ namespace Ex04.Menus.Interfaces
         public void Show()
         {
             Console.Clear();
-            r_MainMenu.onChosen();
+            r_MainMenu.Show();
             Console.WriteLine(EndMessage);
             Thread.Sleep(3000);
         }

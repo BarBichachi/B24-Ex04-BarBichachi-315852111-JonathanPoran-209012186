@@ -37,7 +37,7 @@ namespace Ex04.Menus.Interfaces
             }
         }
 
-        internal void onChosen()
+        internal void Show()
         {
             if (r_MethodListener != null)
             {
@@ -52,7 +52,7 @@ namespace Ex04.Menus.Interfaces
 
                 if (userChoice != 0)
                 {
-                    m_SubItems[userChoice - 1].onChosen();
+                    m_SubItems[userChoice - 1].Show();
                 }
                 else
                 {
@@ -111,7 +111,7 @@ namespace Ex04.Menus.Interfaces
 
         void IMenuListener.ReportFinished()
         {
-            this.onChosen();
+            this.Show();
         }
     }
 }

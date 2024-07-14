@@ -1,5 +1,5 @@
-﻿using System.Threading;
-using System;
+﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 
 namespace Ex04.Menus.Events
@@ -39,7 +39,7 @@ namespace Ex04.Menus.Events
 
                 if (userChoice != 0)
                 {
-                    mainMenuSubItems[userChoice - 1].OnChosen();
+                    mainMenuSubItems[userChoice - 1].Show();
                 }
                 else
                 {

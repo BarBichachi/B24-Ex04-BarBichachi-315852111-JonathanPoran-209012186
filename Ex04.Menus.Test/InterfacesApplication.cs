@@ -1,13 +1,13 @@
-﻿using System.Threading;
-using System;
+﻿using System;
+using System.Threading;
 
 using Ex04.Menus.Interfaces;
 
 namespace Ex04.Menus.Test
 {
-    public class InterfacesApplication : IMethodListener
+    internal class InterfacesApplication : IMethodListener
     {
-        private static readonly MainMenu sr_MainMenu = new MainMenu("Interface Menu");
+        private readonly MainMenu r_MainMenu = new MainMenu("Interface Menu");
 
         public void Start()
         {
@@ -18,28 +18,29 @@ namespace Ex04.Menus.Test
             versionAndCapitalsMenu.AddMenuItem(new MenuItem("Count Capitals", this));
             showDateAndTimeMenu.AddMenuItem(new MenuItem("Show Time", this));
             showDateAndTimeMenu.AddMenuItem(new MenuItem("Show Date", this));
-            sr_MainMenu.AddMenuItem(versionAndCapitalsMenu);
-            sr_MainMenu.AddMenuItem(showDateAndTimeMenu);
-            sr_MainMenu.Show();
+            r_MainMenu.AddMenuItem(versionAndCapitalsMenu);
+            r_MainMenu.AddMenuItem(showDateAndTimeMenu);
+            r_MainMenu.Show();
         }
 
         public void ChosenMethod(string i_MenuItemTitle)
         {
-            if (i_MenuItemTitle == "Show Version")
+            switch (i_MenuItemTitle)
             {
-                showVersion();
-            }
-            else if (i_MenuItemTitle == "Count Capitals")
-            {
-                countCapitals();
-            }
-            else if (i_MenuItemTitle == "Show Time")
-            {
-                showTime();
-            }
-            else if (i_MenuItemTitle == "Show Date")
-            {
-                showDate();
+                case "Show Version":
+                    showVersion();
+                    break;
+                case "Count Capitals":
+                    countCapitals();
+                    break;
+                case "Show Time":
+                    showTime();
+                    break;
+                case "Show Date":
+                    showDate();
+                    break;
+                default:
+                    throw new Exception($"MenuItem Title '{i_MenuItemTitle}' does not match any known method names");
             }
         }
 

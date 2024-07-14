@@ -14,7 +14,7 @@ namespace Ex04.Menus.Events
                 return m_SubItems;
             }
         }
-        public event Action m_Listeners;
+        public event Action<string> m_Listeners;
 
         public MenuItem(string i_Title)
         {
@@ -38,18 +38,13 @@ namespace Ex04.Menus.Events
             }
         }
 
-        internal void OnChosen()
+        internal void Show()
         {
             bool isFinished = false;
 
             do
             {
-                if (m_Listeners != null)
-                {
-                    m_Listeners.Invoke();
-                    isFinished = true;
-                }
-                else
+                if (m_SubItems != null)
                 {
                     int userChoice = GetValidOption(m_SubItems, "Back");
 
@@ -62,7 +57,20 @@ namespace Ex04.Menus.Events
                         isFinished = true;
                     }
                 }
+                else
+                {
+                    OnChosen();
+                    isFinished = true;
+                }
             } while (!isFinished);
+        }
+
+        protected virtual void OnChosen()
+        {
+            if (m_Listeners != null)
+            {
+                m_Listeners.Invoke(this.r_Title);
+            }
         }
 
         internal int GetValidOption(List<MenuItem> i_SubItems, string returnString)
