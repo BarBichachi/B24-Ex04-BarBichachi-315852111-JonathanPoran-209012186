@@ -8,22 +8,15 @@ public class App
         MainMenu mainMenu = new MainMenu("MainMenu");
 
         MenuItem subMenu1 = new MenuItem("sub menu 1");
-        MenuItem MainItem1 = new MenuItem("Main Item 1");
+        MenuItem MainItem1 = new MenuItem("Main Item 1",s);
 
-        MenuItem subMenu11fsubMenu1  = new MenuItem("item 11");
-        MenuItem subMenu22fsubMenu1  = new MenuItem("item 22");
-
-        subMenu22fsubMenu1.MethodListener = s;
-        subMenu11fsubMenu1.MethodListener = s;
-        MainItem1.MethodListener = s;
+        MenuItem subMenu11fsubMenu1  = new MenuItem("item 11",s);
+        MenuItem subMenu22fsubMenu1  = new MenuItem("item 22",s);
+        subMenu1.AddMenuItem(subMenu11fsubMenu1);
+        subMenu1.AddMenuItem(subMenu22fsubMenu1);
 
         mainMenu.AddMenuItem(subMenu1);
         mainMenu.AddMenuItem(MainItem1);
-
-
-
-        subMenu1.AddMenuItem(subMenu11fsubMenu1);
-        subMenu1.AddMenuItem(subMenu22fsubMenu1);
 
         mainMenu.Show();
         Thread.Sleep(3000);

@@ -5,36 +5,41 @@ namespace programInterface
     {
         protected readonly string r_Title = string.Empty;
         private List<MenuItem> m_SubItems = new List<MenuItem>();
-        private bool? m_IsSubMenu;
+        private bool m_IsSubMenu;
         private IMenuListener? m_MenuListener;
         private IMethodListener? m_MethodListener;
 
 
-        public IMethodListener? MethodListener 
-        {
-            set
-            {
-                if (m_IsSubMenu == null || m_IsSubMenu == false)
-                {
-                    SetIsSubMenu(false);
-                    m_MethodListener = value; // Corrected to set the appropriate field
-                }
-                else
-                {
-                    throw new ArgumentException("SubMenu can't be an action item menu");
-                }
-            }
-        }
+        // public IMethodListener? MethodListener 
+        // {
+        //     set
+        //     {
+        //         if (m_IsSubMenu == false)
+        //         {
+        //             m_MethodListener = value;
+        //         }
+        //         else
+        //         {
+        //             throw new ArgumentException("SubMenu can't be an action item menu");
+        //         }
+        //     }
+        // }
 
         public MenuItem(string i_Title)
+        {            
+            r_Title = i_Title;
+            m_IsSubMenu = true;
+        }
+
+        public MenuItem(string i_Title, IMethodListener i_Listener)
         {
             r_Title = i_Title;
+            m_IsSubMenu = false;
+            m_MethodListener = i_Listener;
         }
 
         public void AddMenuItem(MenuItem i_MenuItem)
         {
-            SetIsSubMenu(true);
-
             if (m_IsSubMenu == true)
             {
                 m_SubItems.Add(i_MenuItem);
@@ -122,22 +127,19 @@ namespace programInterface
 
             foreach (MenuItem menuItem in i_SubItems)
             {
-                Console.WriteLine($"{numOption}. {menuItem}");
+                Console.WriteLine($"{numOption}. {menuItem.ToString()}");
                 numOption++;
-            }
-        }
-
-        private void SetIsSubMenu(bool value)
-        {
-            if (m_IsSubMenu == null)
-            {
-                m_IsSubMenu = value;
             }
         }
 
         void IMenuListener.OneOfMySubitemFinish()
         {
             this.Show();
+        }
+
+        public override string ToString()
+        {
+            return r_Title;
         }
     }
 }
