@@ -1,95 +1,126 @@
-﻿// using System;
-// using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-// namespace Ex04.Menus.Interfaces
-// {
-//     public class MenuItem
-//     {
-//         private readonly string r_Title;
-//         private bool? m_IsSubMenu;
-//         private List<MenuItem> SubItems;
-//         public event Action<MenuItem> m_MenuNoitifier;
-//         public event Action<string> m_MethodNoitifier
-//         {
-//             add
-//             {
-//                 SetIsSubMenu(false);
-//                 if(m_IsSubMenu == true)
-//                 {
-//                     throw new ArgumentException("Cannot add sub-items to an executable item.");
-//                 }
-//                 else
-//                 {
-//                     m_MethodNoitifier += value;
-//                 }
-//             }
-//             remove
-//             {
-//                 m_MethodNoitifier -= value;
-//             }
-//         }
-//         public MenuItem(string i_Title)
-//         {
-//             r_Title = i_Title;
-//         }
+namespace Ex04.Menus.Interfaces
+{
+    public class MenuItem : IMenuListener
+    {
+        protected readonly string r_Title;
+        private List<MenuItem> m_SubItems = new List<MenuItem>();
+        private readonly bool r_IsSubMenu;
+        private IMenuListener? m_MenuListener;
+        private readonly IMethodListener? r_MethodListener;
 
-//         public void AddMenuItem(MenuItem i_MenuItem)
-//         {
-//             SetIsSubMenu(true);
+        public MenuItem(string i_Title)
+        {
+            r_Title = i_Title;
+            r_IsSubMenu = true;
+            r_MethodListener = null;
+        }
 
-//             if(m_IsSubMenu == true)
-//             {
-//                 if (SubItems == null)
-//                 {
-//                     SubItems = new List<MenuItem>();
-//                 }
+        public MenuItem(string i_Title, IMethodListener i_Listener)
+        {
+            r_Title = i_Title;
+            r_IsSubMenu = false;
+            r_MethodListener = i_Listener;
+        }
 
-//                 SubItems.Add(i_MenuItem);
-//                 i_MenuItem.m_MenuNoitifier += new Action<MenuItem>(this.DoChooseItem);
-//             }
-            
-//             else
-//             {
-//                 throw new ArgumentException("Cannot add sub-items to an executable item.");
-//             }
-//         }
+        public void AddMenuItem(MenuItem i_MenuItem)
+        {
+            if (r_MethodListener == null)
+            {
+                m_SubItems.Add(i_MenuItem);
 
-//         public void RemoveMenuItem(MenuItem i_MenuItem)
-//         {
-//             if (SubItems == null)
-//             {
-//                 throw new ArgumentException("Cannot remove from an executable item.");
-//             }
+                if (i_MenuItem.m_MenuListener == null)
+                {
+                    i_MenuItem.m_MenuListener = this;
+                }
+                else
+                {
+                    throw new ArgumentException($"{i_MenuItem} is already in another menu.");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Cannot add sub-items to an executable item.");
+            }
+        }
 
-//             if (SubItems.Count == 0)
-//             {
-//                 throw new ArgumentException("No items to remove in the SubItems list.");
-//             }
+        internal void Show()
+        {
+            if (r_MethodListener != null)
+            {
+                r_MethodListener?.chosenMethod(this.r_Title);
+                m_MenuListener?.ReportFinished();
+            }
+            else
+            {
+                printSubItems(m_SubItems);
 
-//             if (!SubItems.Contains(i_MenuItem))
-//             {
-//                 throw new ArgumentException("Menu item to remove does not exist in SubItems.");
-//             }
+                int userChoice = getValidOption(m_SubItems);
 
-//             SubItems.Remove(i_MenuItem);
-//         }
+                if (userChoice != 0)
+                {
+                    m_SubItems[userChoice - 1].Show();
+                }
+                else
+                {
+                    m_MenuListener?.ReportFinished();
+                }
+            }
+        }
 
-//         public override string ToString()
-//         {
-//             return r_Title;
-//         }
+        private int getValidOption(List<MenuItem> i_SubItems)
+        {
+            bool isValid = false;
+            int numericChoice;
+            int numberOfSubItems = i_SubItems.Count;
+            string returnString = m_MenuListener == null ? "exit" : "back";
 
-//         public void DoChooseItem()
-//         {
-//             m_MethodNoitifier?.Invoke(r_Title);
-//         }
+            do
+            {
+                Console.Write($"Please enter your choice (1-{numberOfSubItems} or 0 to {returnString}): ");
 
-//         private void SetIsSubMenu(bool value)
-//         {
-//             if (m_IsSubMenu == null)
-//             {
-//                 m_IsSubMenu = value;
-//             }
-//         }
-//     }
-// }
+                string userChoice = Console.ReadLine();
+
+                if (!int.TryParse(userChoice, out numericChoice))
+                {
+                    Console.WriteLine("Invalid choice. Please enter a valid integer.");
+                }
+                else
+                {
+                    isValid = numericChoice >= 0 && numericChoice <= numberOfSubItems;
+
+                    if (!isValid)
+                    {
+                        Console.WriteLine($"You can only choose between 0 and {numberOfSubItems}. Try again.");
+                    }
+                }
+            } while (!isValid);
+
+            return numericChoice;
+        }
+
+        private void printSubItems(List<MenuItem> i_SubItems)
+        {
+            int numOption = 1;
+            string returnString = m_MenuListener == null ? "Exit" : "Back";
+
+            Console.Clear();
+            Console.WriteLine($"===== {r_Title} =====");
+
+            foreach (MenuItem menuItem in i_SubItems)
+            {
+                Console.WriteLine($"{numOption}. {menuItem.r_Title}");
+                numOption++;
+            }
+
+            Console.WriteLine($"0. {returnString}");
+        }
+
+        void IMenuListener.ReportFinished()
+        {
+            this.Show();
+        }
+    }
+}
